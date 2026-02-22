@@ -13,14 +13,12 @@ model_list:
       api_base: os.environ/LLAMA_SERVER_URL
       api_key: "not-needed"
       timeout: 120
-    model_info:
       order: 1
 
   - model_name: reasoner
     litellm_params:
       model: openai/gpt-4o
       api_key: os.environ/OPENAI_API_KEY
-    model_info:
       order: 2
 
   # ================================================================
@@ -33,7 +31,6 @@ model_list:
       api_base: os.environ/PORTABLE_LLM_SERVER_URL
       api_key: "not-needed"
       timeout: 60
-    model_info:
       order: 1
 
   - model_name: judge
@@ -42,14 +39,12 @@ model_list:
       api_base: os.environ/LLAMA_SERVER_URL
       api_key: "not-needed"
       timeout: 60
-    model_info:
       order: 2
 
   - model_name: judge
     litellm_params:
       model: openai/gpt-4o-mini
       api_key: os.environ/OPENAI_API_KEY
-    model_info:
       order: 3
 
 router_settings:
