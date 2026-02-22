@@ -4,22 +4,12 @@
 
 model_list:
   # ================================================================
-  # Direct models (visible in Open WebUI model dropdown)
-  # ================================================================
-  - model_name: gpt-oss-120b
-    litellm_params:
-      model: openai/gpt-oss-120b
-      api_base: os.environ/LLAMA_SERVER_URL
-      api_key: "not-needed"
-      timeout: 120
-
-  # ================================================================
-  # Reasoner: primary inference model for LangChain Judge chain
+  # Reasoner: primary inference model
   # Fallback order: local GPU host → Cloud API
   # ================================================================
   - model_name: reasoner
     litellm_params:
-      model: openai/gpt-oss-120b
+      model: os.environ/REASONER_LOCAL_MODEL
       api_base: os.environ/LLAMA_SERVER_URL
       api_key: "not-needed"
       timeout: 120
@@ -39,7 +29,7 @@ model_list:
   # ================================================================
   - model_name: judge
     litellm_params:
-      model: openai/qwen2.5-7b-instruct
+      model: os.environ/JUDGE_LOCAL_MODEL
       api_base: os.environ/PORTABLE_LLM_SERVER_URL
       api_key: "not-needed"
       timeout: 60
@@ -48,7 +38,7 @@ model_list:
 
   - model_name: judge
     litellm_params:
-      model: openai/qwen2.5-7b-instruct
+      model: os.environ/JUDGE_LOCAL_MODEL
       api_base: os.environ/LLAMA_SERVER_URL
       api_key: "not-needed"
       timeout: 60
