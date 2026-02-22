@@ -1,0 +1,75 @@
+# LiteLLM Proxy configuration
+# All endpoints and API keys are resolved from environment variables.
+# See .env.example for the required variables.
+
+model_list:
+  # ================================================================
+  # Direct models (visible in Open WebUI model dropdown)
+  # ================================================================
+  - model_name: gpt-oss-120b
+    litellm_params:
+      model: openai/gpt-oss-120b
+      api_base: os.environ/LLAMA_SERVER_URL
+      api_key: "not-needed"
+      timeout: 120
+
+  # ================================================================
+  # Reasoner: primary inference model for LangChain Judge chain
+  # Fallback order: local GPU host → Cloud API
+  # ================================================================
+  - model_name: reasoner
+    litellm_params:
+      model: openai/gpt-oss-120b
+      api_base: os.environ/LLAMA_SERVER_URL
+      api_key: "not-needed"
+      timeout: 120
+    model_info:
+      order: 1
+
+  - model_name: reasoner
+    litellm_params:
+      model: openai/gpt-4o
+      api_key: os.environ/OPENAI_API_KEY
+    model_info:
+      order: 2
+
+  # ================================================================
+  # Judge: evaluation model for LangChain Judge chain
+  # Fallback order: Mac → local GPU host → Cloud API
+  # ================================================================
+  - model_name: judge
+    litellm_params:
+      model: openai/qwen2.5-7b-instruct
+      api_base: os.environ/PORTABLE_LLM_SERVER_URL
+      api_key: "not-needed"
+      timeout: 60
+    model_info:
+      order: 1
+
+  - model_name: judge
+    litellm_params:
+      model: openai/qwen2.5-7b-instruct
+      api_base: os.environ/LLAMA_SERVER_URL
+      api_key: "not-needed"
+      timeout: 60
+    model_info:
+      order: 2
+
+  - model_name: judge
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_key: os.environ/OPENAI_API_KEY
+    model_info:
+      order: 3
+
+router_settings:
+  enable_pre_call_checks: true   # Required for 'order' to work
+  num_retries: 1
+  timeout: 120
+  retry_after: 5
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+
+litellm_settings:
+  drop_params: true              # Ignore unsupported params per provider
