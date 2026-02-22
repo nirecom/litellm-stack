@@ -74,3 +74,18 @@ docker compose pull && docker compose up -d   # Update image
 
 - `.env` contains secrets — it is excluded from Git via `.gitignore`
 - Changing `config.yaml` requires `docker compose restart`
+
+## Open WebUI Co-location
+
+When Open WebUI runs on the same Docker host, `docker-compose.override.yml`
+joins litellm-proxy to the Open WebUI network. This allows Open WebUI to
+connect using the container name: `http://litellm-proxy:4000/v1`
+
+If litellm-stack is moved to a separate host, delete the override file:
+
+```bash
+rm docker-compose.override.yml
+docker compose down && docker compose up -d
+```
+
+Open WebUI should then use the host IP instead: `http://<server-ip>:4000/v1`
