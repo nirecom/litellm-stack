@@ -1,5 +1,5 @@
 # LiteLLM Proxy configuration
-# All endpoints and API keys are resolved from environment variables.
+# All endpoints, model names, and API keys are resolved from environment variables.
 # See .env.example for the required variables.
 
 model_list:
@@ -17,7 +17,7 @@ model_list:
 
   - model_name: reasoner
     litellm_params:
-      model: openai/gpt-4o
+      model: os.environ/REASONER_CLOUD_MODEL
       api_key: os.environ/OPENAI_API_KEY
       order: 2
 
@@ -43,7 +43,7 @@ model_list:
 
   - model_name: judge
     litellm_params:
-      model: openai/gpt-4o-mini
+      model: os.environ/JUDGE_CLOUD_MODEL
       api_key: os.environ/OPENAI_API_KEY
       order: 3
 
