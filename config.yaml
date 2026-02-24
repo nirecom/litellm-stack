@@ -18,7 +18,7 @@ model_list:
   - model_name: reasoner
     litellm_params:
       model: os.environ/REASONER_CLOUD_MODEL
-      api_key: os.environ/OPENAI_API_KEY
+      api_key: os.environ/CLOUD_API_KEY
       order: 2
 
   # ================================================================
@@ -44,7 +44,7 @@ model_list:
   - model_name: judge
     litellm_params:
       model: os.environ/JUDGE_CLOUD_MODEL
-      api_key: os.environ/OPENAI_API_KEY
+      api_key: os.environ/CLOUD_API_KEY
       order: 3
 
 router_settings:
