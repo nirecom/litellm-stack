@@ -12,6 +12,7 @@ model_list:
       api_base: os.environ/LLAMA_SERVER_URL
       api_key: "not-needed"
       timeout: 120
+      stream_timeout: 60
 
   # ================================================================
   # Reasoner: primary inference model
@@ -40,7 +41,7 @@ model_list:
       model: os.environ/JUDGE_LOCAL_MODEL
       api_base: os.environ/PORTABLE_LLM_SERVER_URL
       api_key: "not-needed"
-      timeout: 90
+      timeout: 5
       max_parallel_requests: 4
       order: 1
 
