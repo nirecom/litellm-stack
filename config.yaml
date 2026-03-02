@@ -33,14 +33,15 @@ model_list:
 
   # ================================================================
   # Judge: evaluation model for LangChain Judge chain
-  # Fallback order: Mac → local GPU host → Cloud API
+  # Load balance: Mac + GPU host (least-busy), Cloud fallback
   # ================================================================
   - model_name: judge
     litellm_params:
       model: os.environ/JUDGE_LOCAL_MODEL
       api_base: os.environ/PORTABLE_LLM_SERVER_URL
       api_key: "not-needed"
-      timeout: 60
+      timeout: 90
+      max_parallel_requests: 4
       order: 1
 
   - model_name: judge
@@ -48,20 +49,24 @@ model_list:
       model: os.environ/JUDGE_LOCAL_MODEL
       api_base: os.environ/LLAMA_SERVER_URL
       api_key: "not-needed"
-      timeout: 60
-      order: 2
+      timeout: 90
+      max_parallel_requests: 4
+      order: 1
 
   - model_name: judge
     litellm_params:
       model: os.environ/JUDGE_CLOUD_MODEL
       api_key: os.environ/CLOUD_API_KEY
-      order: 3
+      order: 2
 
 router_settings:
   enable_pre_call_checks: true   # Required for 'order' to work
-  num_retries: 1
+  routing_strategy: "least-busy"
+  num_retries: 2
   timeout: 120
   retry_after: 5
+  allowed_fails: 2
+  cooldown_time: 30
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
