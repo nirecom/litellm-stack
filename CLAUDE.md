@@ -72,3 +72,10 @@ The entrypoint appends a CA cert (`CA_CERT_PATH` env var) to the system trust st
 - `config.yaml` changes require `docker compose restart` to take effect.
 - All endpoints, model identifiers, and API keys must be environment variables — never hardcode secrets or host-specific values in config.yaml.
 - The `order` field on litellm_params controls fallback priority (lower = preferred). This only works with `enable_pre_call_checks: true` in router_settings.
+
+## LangChain Project: Phase Workflow
+
+This repo participates in the LangChain phased implementation.
+Canonical rules: `../ai-specs/CLAUDE.md` § "LangChain Project: Phase Workflow"
+
+Phase handoffs and completion reports are stored in `.context-private/`.
