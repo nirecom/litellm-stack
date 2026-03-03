@@ -8,7 +8,7 @@ model_list:
   # ================================================================
   - model_name: gpt-oss-120b
     litellm_params:
-      model: os.environ/REASONER_LOCAL_MODEL
+      model: os.environ/DIRECT_LOCAL_MODEL
       api_base: os.environ/LLAMA_SERVER_URL
       api_key: "not-needed"
       timeout: 120
@@ -23,7 +23,7 @@ model_list:
       model: os.environ/REASONER_LOCAL_MODEL
       api_base: os.environ/LLAMA_SERVER_URL
       api_key: "not-needed"
-      timeout: 120
+      timeout: 30
       order: 1
 
   - model_name: reasoner
@@ -50,7 +50,7 @@ model_list:
       model: os.environ/JUDGE_LOCAL_MODEL
       api_base: os.environ/LLAMA_SERVER_URL
       api_key: "not-needed"
-      timeout: 90
+      timeout: 30
       max_parallel_requests: 4
       order: 1
 
@@ -64,7 +64,7 @@ router_settings:
   enable_pre_call_checks: true   # Required for 'order' to work
   routing_strategy: "least-busy"
   num_retries: 2
-  timeout: 120
+  timeout: 60
   retry_after: 5
   allowed_fails: 2
   cooldown_time: 30
