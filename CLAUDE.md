@@ -49,7 +49,7 @@ Clients (Open WebUI, LangChain, etc.)
 | `config.yaml` | LiteLLM model_list with ordered fallback routing, router/general/litellm settings. All values resolve from env vars via `os.environ/` syntax. |
 | `.env` | Secrets and endpoint URLs (gitignored). Copy from `.env.example`. |
 | `docker-compose.yml` | Single `litellm-proxy` service. Mounts config.yaml read-only, injects a custom CA cert, runs healthcheck. |
-| `docker-compose.override.yml` | Joins litellm-proxy to Open WebUI's Docker network for same-host co-location. Delete if running on a separate host. |
+| `docker-compose.override.yml` | Creates the shared Docker network `shared-llm-net` and joins litellm-proxy to it for same-host co-location with Open WebUI. Delete if running on a separate host. |
 
 ### Model Routing (config.yaml)
 

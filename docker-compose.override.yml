@@ -1,15 +1,15 @@
 # Override for when Open WebUI runs on the same Docker host.
-# This joins litellm-proxy to the Open WebUI network so containers
-# can communicate by name (e.g. http://litellm-proxy:4000/v1).
+# This creates a shared network so containers can communicate by name
+# (e.g. http://litellm-proxy:4000/v1).
 #
 # Delete this file if litellm-stack runs on a separate host.
 services:
   litellm-proxy:
     networks:
       - default
-      - open-webui
+      - shared
 
 networks:
-  open-webui:
-    external: true
-    name: open-webui-stack_app-net
+  shared:
+    driver: bridge
+    name: shared-llm-net
